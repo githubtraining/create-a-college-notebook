@@ -32,8 +32,10 @@ steps:
         base: master
         action_id: new_pr
       - type: respond
-        with: response.md
-    description: Move your wokflow file
+        with: next-pr.md
+        data:
+          prUrl: '%actions.new_pr.data.html_url%'
+    description: Move your workflow file
     link: '{{ repoUrl }}/pulls/2'
     event: pull_request.synchronize
   - title: First Action
@@ -45,9 +47,11 @@ steps:
         body: 03.0_second-action.md
         head: add-save-action
         base: master
-        action_id: save_issue_body
+        action_id: new_pr
       - type: respond
-        with: response.md
+        with: next-pr.md
+        data:
+          prUrl: '%actions.new_pr.data.html_url%'
     description: Your first action
     link: '{{ repoUrl }}/pulls/3'
     event: pull_request.closed
