@@ -10,6 +10,8 @@ before:
     head: add-workflow
     base: master
     body: 00.0_welcome.md
+    comments:
+      - 01.0_workflow.md
 steps:
   - title: Move the workflow file
     actions:
