@@ -3,15 +3,39 @@ tagline: A brand new course on Learning Lab
 description: Let's create a college notebook
 template:
   repo: create-a-college-notebook-template
-  name: create-a-college-notebook
+  name: college-notebook
 before:
   - type: createIssue
     title: Welcome!
     body: new-issue.md
 steps:
-  - title: First step
-    description: The first step in your course
-    event: issues.assigned
-    link: '{{ repoUrl }}'
+  - title: Configuring your workflow
+    description: Preparing your repository for GitHub Actions
+    event: issues.closed
+    link: '{{ repoUrl }}/issues/1'
     actions:
-      - type: closeIssue
+      - type: createPullRequest
+        title: Your workflow
+        head: add-workflow
+        base: master
+      - type: respond
+        with: REPLACE-WITH-RESPONSE
+  - title: Move the workflow file
+    actions:
+      - type: getTree
+        action_id: tree
+        recursive: true
+        sha: '%payload.pull_request.head.sha%'
+      - type: gate
+        left: '%actions.tree.data.tree%'
+        operator: includes
+        right: 'path:.github/workflows/workflow.yml'
+        else:
+          - type: respond
+            with: fail.md
+      - type: mergePullRequest
+      - type: respond
+        with: response.md
+    description: Move your wokflow file
+    link: '{{ repoUrl }}/pulls/2'
+    event: pull_request.synchronize
