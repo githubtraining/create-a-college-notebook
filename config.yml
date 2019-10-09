@@ -55,7 +55,7 @@ steps:
     description: Your first action
     link: '{{ repoUrl }}/pulls/3'
     event: pull_request.closed
-  - title: Add IOS notification
+  - title: Add iOS notification
     actions:
       - type: createIssue
         title: A new issue
@@ -67,6 +67,6 @@ steps:
         body: response-file.md
       - type: respond
         with: other-ideas.md
-    description: Adding our IOS notfication
+    description: Adding our iOS notfication
     link: '{{ repoUrl }}/issues/4'
     event: pull_request.closed
