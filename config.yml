@@ -7,7 +7,7 @@ template:
 before:
   - type: createIssue
     title: Welcome!
-    body: new-issue.md
+    body: 00.0_welcome.md
 steps:
   - title: Configuring your workflow
     description: Preparing your repository for GitHub Actions
@@ -19,7 +19,7 @@ steps:
         head: add-workflow
         base: master
       - type: respond
-        with: REPLACE-WITH-RESPONSE
+        with: 01.0_workflow.md
   - title: Move the workflow file
     actions:
       - type: getTree
@@ -36,7 +36,7 @@ steps:
       - type: mergePullRequest
       - type: createPullRequest
         title: First action to start notebook
-        body: response-file.md
+        body:	02.0_first-action.md
         head: add-issue-action
         base: master
         action_id: new_pr
@@ -51,7 +51,7 @@ steps:
         left: '%payload.pull_request.merged%'
       - type: createPullRequest
         title: Saving our notes
-        body: response-file.md
+        body: 03.0_second-action.md
         head: add-save-action
         base: master
         action_id: save_issue_body
