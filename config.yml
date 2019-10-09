@@ -38,29 +38,24 @@ steps:
         data:
           prUrl: "%actions.new_pr.data.html_url%"
     description: Move your workflow file
-    link: "{{ repoUrl }}/pull/2"
+    link: "{{ repoUrl }}/pull/1"
     event: pull_request.synchronize
   - title: First Action
     actions:
       - type: gate
         left: "%payload.pull_request.merged%"
-      # - type: createPullRequest
-      #   title: Saving our notes
-      #   body: 03.0_second-action.md
-      #   head: add-save-action
-      #   base: master
-      #   action_id: new_pr
-      # - type: respond
-      #   with: next-pr.md
-      # data:
-      #   prUrl: '%actions.new_pr.data.html_url%'
       - type: createIssue
+        action_id: new_issue
         title: Setting up iOS notifications
         body: token.md
         comments:
           - ios.md
+      - type: respond
+        with: new-issue.md
+        data:
+          issueUrl: '%actions.new_issue.data.html_url%'
     description: Your first action
-    link: "{{ repoUrl }}/pull/3"
+    link: "{{ repoUrl }}/pull/2"
     event: pull_request.closed
   - title: Add iOS notification
     actions:
@@ -75,5 +70,5 @@ steps:
       - type: respond
         with: other-ideas.md
     description: Adding our iOS notfication
-    link: "{{ repoUrl }}/issues/4"
+    link: "{{ repoUrl }}/issues/3"
     event: pull_request.closed
