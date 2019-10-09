@@ -38,7 +38,7 @@ steps:
         data:
           prUrl: "%actions.new_pr.data.html_url%"
     description: Move your workflow file
-    link: "{{ repoUrl }}/pulls/2"
+    link: "{{ repoUrl }}/pull/2"
     event: pull_request.synchronize
   - title: First Action
     actions:
@@ -60,7 +60,7 @@ steps:
         comments:
           - ios.md
     description: Your first action
-    link: "{{ repoUrl }}/pulls/3"
+    link: "{{ repoUrl }}/pull/3"
     event: pull_request.closed
   - title: Add iOS notification
     actions:
