@@ -5,21 +5,12 @@ template:
   repo: create-a-college-notebook-template
   name: college-notebook
 before:
-  - type: createIssue
-    title: Welcome!
+  - type: createPullRequest
+    title: Your workflow
+    head: add-workflow
+    base: master
     body: 00.0_welcome.md
 steps:
-  - title: Configuring your workflow
-    description: Preparing your repository for GitHub Actions
-    event: issues.closed
-    link: '{{ repoUrl }}/issues/1'
-    actions:
-      - type: createPullRequest
-        title: Your workflow
-        head: add-workflow
-        base: master
-      - type: respond
-        with: 01.0_workflow.md
   - title: Move the workflow file
     actions:
       - type: getTree
