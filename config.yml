@@ -1,0 +1,17 @@
+title: Create a college notebook
+tagline: A brand new course on Learning Lab
+description: Let's create a college notebook
+template:
+  repo: create-a-college-notebook-template
+  name: create-a-college-notebook
+before:
+  - type: createIssue
+    title: Welcome!
+    body: new-issue.md
+steps:
+  - title: First step
+    description: The first step in your course
+    event: issues.assigned
+    link: '{{ repoUrl }}'
+    actions:
+      - type: closeIssue
