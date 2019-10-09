@@ -34,8 +34,44 @@ steps:
           - type: respond
             with: fail.md
       - type: mergePullRequest
+      - type: createPullRequest
+        title: First action to start notebook
+        body: response-file.md
+        head: add-issue-action
+        base: master
+        action_id: new_pr
       - type: respond
         with: response.md
     description: Move your wokflow file
     link: '{{ repoUrl }}/pulls/2'
     event: pull_request.synchronize
+  - title: First Action
+    actions:
+      - type: gate
+        left: '%payload.pull_request.merged%'
+      - type: createPullRequest
+        title: Saving our notes
+        body: response-file.md
+        head: add-save-action
+        base: master
+        action_id: save_issue_body
+      - type: respond
+        with: response.md
+    description: Your first action
+    link: '{{ repoUrl }}/pulls/3'
+    event: pull_request.closed
+  - title: Add IOS notification
+    actions:
+      - type: createIssue
+        title: A new issue
+        body: a-response-file.md
+      - type: gate
+        left: '%payload.pull_request.merged%'
+      - type: createIssue
+        title: How to set up push notifications
+        body: response-file.md
+      - type: respond
+        with: other-ideas.md
+    description: Adding our IOS notfication
+    link: '{{ repoUrl }}/issues/4'
+    event: pull_request.closed
