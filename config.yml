@@ -18,44 +18,49 @@ steps:
       - type: getTree
         action_id: tree
         recursive: true
-        sha: '%payload.pull_request.head.sha%'
+        sha: "%payload.pull_request.head.sha%"
       - type: gate
-        left: '%actions.tree.data.tree%'
+        left: "%actions.tree.data.tree%"
         operator: includes
-        right: 'path:.github/workflows/workflow.yml'
+        right: "path:.github/workflows/workflow.yml"
         else:
           - type: respond
             with: fail.md
       - type: mergePullRequest
       - type: createPullRequest
         title: First action to start notebook
-        body:	02.0_first-action.md
-        head: add-issue-action
+        body: 02.0_first-action.md
+        head: open-pr
         base: master
         action_id: new_pr
       - type: respond
         with: next-pr.md
         data:
-          prUrl: '%actions.new_pr.data.html_url%'
+          prUrl: "%actions.new_pr.data.html_url%"
     description: Move your workflow file
-    link: '{{ repoUrl }}/pulls/2'
+    link: "{{ repoUrl }}/pulls/2"
     event: pull_request.synchronize
   - title: First Action
     actions:
       - type: gate
-        left: '%payload.pull_request.merged%'
-      - type: createPullRequest
-        title: Saving our notes
-        body: 03.0_second-action.md
-        head: add-save-action
-        base: master
-        action_id: new_pr
-      - type: respond
-        with: next-pr.md
-        data:
-          prUrl: '%actions.new_pr.data.html_url%'
+        left: "%payload.pull_request.merged%"
+      # - type: createPullRequest
+      #   title: Saving our notes
+      #   body: 03.0_second-action.md
+      #   head: add-save-action
+      #   base: master
+      #   action_id: new_pr
+      # - type: respond
+      #   with: next-pr.md
+      # data:
+      #   prUrl: '%actions.new_pr.data.html_url%'
+      - type: createIssue
+        title: Setting up iOS notifications
+        body: token.md
+        comments:
+          - ios.md
     description: Your first action
-    link: '{{ repoUrl }}/pulls/3'
+    link: "{{ repoUrl }}/pulls/3"
     event: pull_request.closed
   - title: Add iOS notification
     actions:
@@ -63,12 +68,12 @@ steps:
         title: A new issue
         body: a-response-file.md
       - type: gate
-        left: '%payload.pull_request.merged%'
+        left: "%payload.pull_request.merged%"
       - type: createIssue
         title: How to set up push notifications
         body: response-file.md
       - type: respond
         with: other-ideas.md
     description: Adding our iOS notfication
-    link: '{{ repoUrl }}/issues/4'
+    link: "{{ repoUrl }}/issues/4"
     event: pull_request.closed
